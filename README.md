@@ -151,27 +151,49 @@ This submission is built against the mock API spec from Appendix A of the assign
 ## Project Structure
 
 ```
-src/
-├── api/              # Axios wrappers — one file per resource
-│   ├── client.ts     # Base axios instance with auth interceptor
-│   ├── auth.api.ts
-│   ├── projects.api.ts
-│   └── tasks.api.ts
-├── contexts/
-│   └── AuthContext.tsx   # Only global state — token + user
-├── mocks/
-│   ├── browser.ts        # MSW worker setup
-│   ├── db.ts             # Seeded in-memory data
-│   └── handlers/         # One handler file per resource
-├── components/
-│   ├── layout/           # Navbar, ProtectedRoute
-│   ├── projects/         # ProjectCard, ProjectFormModal
-│   └── tasks/            # TaskCard, TaskDrawer, TaskFilters
-├── pages/
-│   ├── LoginPage.tsx
-│   ├── RegisterPage.tsx
-│   ├── ProjectsPage.tsx
-│   └── ProjectDetailPage.tsx
-└── types/
-    └── index.ts          # All TypeScript types in one file
+📦 src
+├── 📁 api                  # Axios layer — handles all API communication
+│   ├── 📄 client.ts        # Base axios instance (interceptors, auth token injection)
+│   ├── 📄 auth.api.ts      # Auth-related API calls (login, register)
+│   ├── 📄 projects.api.ts  # Project CRUD APIs
+│   └── 📄 tasks.api.ts     # Task CRUD + filters APIs
+│
+├── 📁 contexts             # Global React state (minimal, scoped)
+│   └── 📄 AuthContext.tsx  # Stores user + token, provides auth helpers
+│
+├── 📁 mocks                # MSW (Mock Service Worker) for API simulation
+│   ├── 📁 handlers         # API route handlers (feature-wise separation)
+│   │   ├── 📄 auth.handlers.ts     # Mock auth endpoints
+│   │   ├── 📄 projects.handlers.ts # Mock project endpoints
+│   │   └── 📄 tasks.handlers.ts    # Mock task endpoints
+│   ├── 📄 browser.ts       # MSW worker setup (runs in browser)
+│   ├── 📄 db.ts            # In-memory database (seed + mutations)
+│   └── 📄 index.ts         # Combines all handlers
+│
+├── 📁 components           # Reusable UI components (feature-based grouping)
+│   ├── 📁 layout           # App shell components
+│   │   ├── 📄 Navbar.tsx          # Top navigation bar
+│   │   └── 📄 ProtectedRoute.tsx  # Route guard for auth-protected pages
+│   │
+│   ├── 📁 projects         # Project-related UI
+│   │   ├── 📄 ProjectCard.tsx       # Project display card
+│   │   └── 📄 ProjectFormModal.tsx  # Create/Edit project modal
+│   │
+│   └── 📁 tasks            # Task-related UI
+│       ├── 📄 TaskCard.tsx     # Individual task UI
+│       ├── 📄 TaskDrawer.tsx   # Task detail/edit drawer
+│       └── 📄 TaskFilters.tsx  # Filters (status, assignee, etc.)
+│
+├── 📁 pages                # Route-level pages (mapped to routes)
+│   ├── 📄 LoginPage.tsx          # User login page
+│   ├── 📄 RegisterPage.tsx       # User registration page
+│   ├── 📄 ProjectsPage.tsx       # Projects listing/dashboard
+│   └── 📄 ProjectDetailPage.tsx  # Single project view + tasks
+│
+├── 📁 theme                # 🎨 Design system / theming engine (Chakra-based)
+│   ├── 📄 index.ts         # Theme entry (createSystem + config)
+│   └── 📄 tokens.ts        # Design tokens (colors, spacing, typography, semantic tokens)
+│
+└── 📁 types                # Centralized TypeScript types
+    └── 📄 index.ts         # Shared interfaces (User, Project, Task, etc.)
 ```
