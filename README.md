@@ -48,7 +48,7 @@ Status changes update the UI immediately and revert on error. The previous state
 Requires: Docker
 
 ```bash
-git clone https://github.com/shubham-pathak/taskflow-shubham-pathak
+git clone https://github.com/Shubham-Pathak-14/taskflow-shubham-pathak
 cd taskflow-shubham-pathak
 cp .env.example .env
 docker compose up --build
